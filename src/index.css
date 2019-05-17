@@ -1,0 +1,36 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+li {
+  list-style: none;
+}
+
+.sideBySide {display:flex; flex-direction:row; vertical-align:top;}
+.sideBySideHeader {display:flex; flex-direction:row; vertical-align:top;background-color: #fff;
+  width: 100%;}
+
+.headerTypography {
+  word-break: break-word;
+  width: 100%;
+  /*padding: 20px 0 30px 0;*/
+  text-align: -webkit-center;
+}
+.headerTypographyLast { min-width: 140px;}
+
+.cardStats {background: #2976c0;border-radius:4px;}
+.cardStatsP {color: #647273;}
