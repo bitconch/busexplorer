@@ -1,6 +1,6 @@
 /*
    This component is a Node.JS server that implements
-   API handler methods to support the Block Explorer
+   API handler methods to support the Bus Explorer
    Web UI.
  */
 import express from 'express';

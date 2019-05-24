@@ -531,7 +531,6 @@ class App extends Component {
 
   render() {
     let self = this;
-
     const leaderId = this.state.globalStats['!ent-last-leader'];
 
     return (
@@ -608,24 +607,27 @@ class App extends Component {
                 nodeCount={this.state.nodes.length}
               />
               <p />
-              <BxTransactionChartThemed txnStats={this.state.txnStats} />
-              <p />
-              <Grid container spacing={16} justify="center">
-                <Grid item style={{width: '1460px'}}>
-                  <BxDataItemThemed
-                    dataType="blk"
-                    dataItems={this.state.blocks}
-                  />
+              <div style={{marginTop:'22px'}}>
+                <div style={{float:'left',width:'49%'}}>
+                  <BxTransactionChartThemed txnStats={this.state.txnStats} />
+                  <Grid container spacing={16} justify="center">
+                      <Grid item style={{width: '1460px',marginTop:'22px',padding:'0px'}}>
+                          <BxDataItemThemed
+                              dataType="blk"
+                              dataItems={this.state.blocks}
+                          />
+                      </Grid>
+                  </Grid>
+                </div>
+                <Grid container spacing={16} justify="center" style={{width:'49%',float:'left',marginLeft:'22px'}}>
+                    <Grid item style={{width: '1460px'}}>
+                        <BxDataItemThemed
+                            dataType="txn"
+                            dataItems={this.state.transactions}
+                        />
+                    </Grid>
                 </Grid>
-              </Grid>
-              <Grid container spacing={16} justify="center">
-                <Grid item style={{width: '1460px'}}>
-                  <BxDataItemThemed
-                    dataType="txn"
-                    dataItems={this.state.transactions}
-                  />
-                </Grid>
-              </Grid>
+              </div>
               <p />
             </div>
           </div>

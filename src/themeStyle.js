@@ -102,14 +102,25 @@ export const styles = theme => ({
     gridBackColor: {
         backgroundColor: '#2976c0',
     },
+    dataContent: {
+        float: "left",
+        width: "49%",
+    },
+    dataContentMarginLeft: {
+        marginLeft:"22px",
+    },
     sideBySideHeader: {
         width: "100%",
         flex: "0 0 50%",
         padding: '20px 0 20px 0',
         [theme.breakpoints.up('md')]: {
+            color: '#fff',
             flex: 'auto',
             margin: '0 5px 0 5px',
         }
+    },
+    headerTypography: {
+        color:"#fff",
     },
     statsGridIcon: {
         width: "40px",
@@ -136,13 +147,13 @@ export const styles = theme => ({
         width: "calc(100% + 16px)",
         margin: "-8px",
         [theme.breakpoints.up('md')]: {
-            backgroundColor: '#fff',
             flexWrap: "unset",
             flexDirection: "row",
             justifyContent: "center",
             borderRadius: "4px",
             boxShadow: "0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)",
-        }
+        },
+        backgroundColor: '#0091C8',
     },
     dataListContainer: {
         backgroundColor: '#f4f5f9',
