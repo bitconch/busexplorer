@@ -1,6 +1,6 @@
 /*
   This component is a Node.JS service that listens for events from
-  the Bitconch EntryStream class. It runs a main event loop listening to
+  the Solana EntryStream class. It runs a main event loop listening to
   a TCP, UDP, and/or Unix Domain Socket and dispatches events to one
   or more handlers (typically Redis for event aggregation and realtime
   streaming).
@@ -9,6 +9,7 @@ import Base58 from 'base-58';
 import dgram from 'dgram';
 import net from 'net';
 import redis from 'redis';
+//import {Transaction} from '@solana/web3.js';
 import {Transaction} from '@bitconch/bitconch-web3j';
 import _ from 'lodash';
 import fs from 'fs';
@@ -243,18 +244,39 @@ class RedisHandler {
         commands.push(['sadd', `!ent-txn:${message.hash}`, tx.id]);
         commands.push(['lpush', '!txn-timeline', txnMsg]);
 
+        
+
+        
         tx.instructions.forEach(instruction => {
           commands.push([
             'lpush',
             `!txns-by-prgid-timeline:${instruction.program_id}`,
             txnMsg,
           ]);
+          
+          commands.push([
+            'lpush',
+            `!txns-by-account-key:${instruction.keys.slice(0,1)}`,
+            txnMsg,
+          ]);
+
+          if (instruction.keys.length>1){
+            commands.push([
+              'lpush',
+              `!txns-by-account-key:${instruction.keys.slice(1,2)}`,
+              txnMsg,
+            ]);
+          }
+
           commands.push([
             'publish',
             `@program_id:${instruction.program_id}`,
             txnMsg,
           ]);
         });
+
+       
+        
       });
 
       if (txCount > 0) {
