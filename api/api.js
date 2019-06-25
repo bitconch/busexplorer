@@ -1,6 +1,6 @@
 /*
    This component is a Node.JS server that implements
-   API handler methods to support the Bus Explorer
+   API handler methods to support the Block Explorer
    Web UI.
  */
 import express from 'express';
@@ -16,7 +16,8 @@ import geoip from 'geoip-lite';
 import YAML from 'yaml';
 import fs from 'fs';
 import assert from 'assert';
-import * as web3 from '@bitconch/bitconch-web3j';
+//import * as solanaWeb3 from '@solana/web3.js';
+import * as bitconchWeb3 from '@bitconch/bitconch-web3j';
 
 import config from './config';
 
@@ -27,7 +28,7 @@ let FULLNODE_URL = 'http://localhost:8899';
 
 const app = express();
 
-const port = 8960;
+const port = 3001;
 const MINUTE_MS = 60 * 1000;
 
 function getClient() {
@@ -240,6 +241,12 @@ app.get('/txns-by-prgid/:id', (req, res) => {
   sendLrangeResult(key, 0, 99, res);
 });
 
+// add new router for txns by keys
+app.get('/txns-by-account/:id', (req, res) => {
+  let key = `!txns-by-account-key:${req.params.id}`;
+  sendLrangeResult(key, 0, 99, res);
+});
+
 async function sendBlockResult(req, res) {
   try {
     let result = await hgetallAsync(`!blk:${req.params.id}`);
@@ -352,11 +359,18 @@ app.get('/txn/:id', (req, res) => {
 });
 
 async function sendSearchResults(req, res) {
-  let types = ['txn', 'blk', 'ent', 'txns-by-prgid-timeline'];
+  let types = ['txn', 'blk', 'ent', 'txns-by-prgid-timeline','txns-by-account-key'];
   try {
     for (let i = 0; i < types.length; i++) {
       let key = `!${types[i]}:${req.params.id}`;
       let result = await existsAsync(key);
+
+      if (result) {
+        let outType =
+          types[i] === 'txns-by-account' ? 'txns-by-account-key' : types[i];
+        res.send(JSON.stringify({t: outType, id: req.params.id}) + '\n');
+        return;
+      }
 
       if (result) {
         let outType =
@@ -391,9 +405,11 @@ function sendAccountResult(req, res) {
 
     let thePromises = _.map(ids, id => {
       return new Promise(resolve => {
-        const connection = new web3.Connection(FULLNODE_URL);
+        //const connection = new solanaWeb3.Connection(FULLNODE_URL);
+        const connection = new bitconchWeb3.Connection(FULLNODE_URL);
         return connection
-          .getBalance(new web3.PublicKey(id))
+        //  .getBalance(new solanaWeb3.PublicKey(id))
+          .getBalance(new bitconchWeb3.PublicKey(id))
           .then(balance => {
             return resolve({id: id, balance: balance});
           });

@@ -2,12 +2,6 @@
 block explorer for bitconch chain
 
 
-```bash
-
-npm install --save -g solgraph --unsafe-perm=true --allow-root
-
-
-```
 
 install nodejs and redis
 ```bash
