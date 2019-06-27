@@ -24,11 +24,11 @@ import config from './config';
 //
 // FIXME: make configurable
 //
-let FULLNODE_URL = 'http://localhost:8899';
+let FULLNODE_URL = 'http://localhost:10099';
 
 const app = express();
 
-const port = 3001;
+const port = 8961;
 const MINUTE_MS = 60 * 1000;
 
 function getClient() {
