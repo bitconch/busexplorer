@@ -1,6 +1,6 @@
 /*
    This component is a Node.JS server that implements
-   API handler methods to support the Block Explorer
+   API handler methods to support the Bus Explorer
    Web UI.
  */
 import express from 'express';
@@ -16,19 +16,18 @@ import geoip from 'geoip-lite';
 import YAML from 'yaml';
 import fs from 'fs';
 import assert from 'assert';
-//import * as solanaWeb3 from '@solana/web3.js';
-import * as bitconchWeb3 from '@bitconch/bitconch-web3j';
+import * as web3 from '@bitconch/bitconch-web3j';
 
 import config from './config';
 
 //
 // FIXME: make configurable
 //
-let FULLNODE_URL = 'http://localhost:8899';
+let FULLNODE_URL = 'http://localhost:10099';
 
 const app = express();
 
-const port = 3001;
+const port = 8960;
 const MINUTE_MS = 60 * 1000;
 
 function getClient() {
@@ -405,11 +404,9 @@ function sendAccountResult(req, res) {
 
     let thePromises = _.map(ids, id => {
       return new Promise(resolve => {
-        //const connection = new solanaWeb3.Connection(FULLNODE_URL);
-        const connection = new bitconchWeb3.Connection(FULLNODE_URL);
+        const connection = new web3.Connection(FULLNODE_URL);
         return connection
-        //  .getBalance(new solanaWeb3.PublicKey(id))
-          .getBalance(new bitconchWeb3.PublicKey(id))
+          .getBalance(new web3.PublicKey(id))
           .then(balance => {
             return resolve({id: id, balance: balance});
           });
