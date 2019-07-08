@@ -1,6 +1,6 @@
 /*
   This component is a Node.JS service that listens for events from
-  the Solana EntryStream class. It runs a main event loop listening to
+  the Bitconch EntryStream class. It runs a main event loop listening to
   a TCP, UDP, and/or Unix Domain Socket and dispatches events to one
   or more handlers (typically Redis for event aggregation and realtime
   streaming).
@@ -9,7 +9,6 @@ import Base58 from 'base-58';
 import dgram from 'dgram';
 import net from 'net';
 import redis from 'redis';
-//import {Transaction} from '@solana/web3.js';
 import {Transaction} from '@bitconch/bitconch-web3j';
 import _ from 'lodash';
 import fs from 'fs';

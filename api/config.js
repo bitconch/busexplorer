@@ -5,7 +5,7 @@ export default {
     unixds: true,
     host: '127.0.0.1',
     port: 7654,
-    socket: '/tmp/bitconch-blockstream.sock',
+    socket: '/bitconch/tmp/bitconch-blockstream.sock',
   },
   redis: {
     host: '127.0.0.1',
